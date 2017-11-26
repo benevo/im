@@ -1,7 +1,9 @@
 #!/bin/bash
 # description: livereload + hexo + markdown
 
-HexoEditorDir=/Users/wall-e/web/hexo/hexo-editor
+#HexoEditorDir=/Users/wall-e/web/hexo/hexo-editor
+#echo ${HexoEditorDir}
+
 WatchPath=$1
 str_info="\033[45;37m INFO \033[0m "
 str_info="\033[32mINFO \033[0m "

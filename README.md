@@ -42,6 +42,14 @@ chrome需安装插件livereload，在需要的实时刷新的页面点击一下�
 # open http://localhost:2048/
 # 支持图片文件上传，不支持图片黏贴上传
 ```
+安装后设置环境变量： 
+```
+HexoEditorDir=/Users/wall-e/web/hexo/hexo-editor
+```
+并修改稿其目录下的_config.yml文件中的base_dir为hexo的工作目录
+```
+base_dir: /Users/wall-e/web/hexo/im
+```
 
 安装上述插件后，在hexo工作目录下执行以下脚本，可以实时预览，实时修改：
 ```bash
