@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: doubi 
-subtitle: 生而无畏，战至终章
+title: .。.・°d̥̊o̥̊r̥̊e̥̊m̥̊i̥̊ 。.・° 
+subtitle: Start from here.
 description:
-author: Matt R.
+author: Wall-e W.
 language: en
 timezone:
 
@@ -34,7 +34,7 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:

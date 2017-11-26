@@ -1,0 +1,6 @@
+options:
+  imagePrefix: IMG-
+  overwriteImages: true
+  lineNumbers: true
+editor:
+  lineNumbers: true
