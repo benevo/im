@@ -23,6 +23,7 @@ blog on github
 ~ # npm install --save hexo-admin
 ~ # hexo server -d
 # open http://localhost:4000/admin/
+# 支持图片黏贴上传，不支持图片文件上传
 ```
 
 [Livereload](http://www.hahack.com/codes/livereload-for-hexo/#more)：
@@ -39,6 +40,7 @@ chrome需安装插件livereload，在需要的实时刷新的页面点击一下�
 ~ # npm install --production
 ~ # npm start
 # open http://localhost:2048/
+# 支持图片文件上传，不支持图片黏贴上传
 ```
 
 安装上述插件后，在hexo工作目录下执行以下脚本，可以实时预览，实时修改：
