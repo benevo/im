@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OS X, Linux, 共享，挂载," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="由于家里有一台MAC，作为HDTC中心角色，7*24小时运行。本意是将其某些目录共享到家庭内网，供其它机器（虚拟机、路由、NAS等）读写。  本文采用了是NFS共享方式，将OS X 下需共享的目录导出，由DSM5（群晖NAS）和AC66U_B1（华硕路由）进行挂载，以下是具体操作说明 媒体中心配置： MAC OS X ">
+<meta name="keywords" content="OS X, Linux, 共享，挂载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS X共享，LINUX挂载">
+<meta property="og:url" content="http://im.u3ur.cc/2017/11/11/OS-X共享，LINUX挂载/index.html">
+<meta property="og:site_name" content=".。.・°d̥̊o̥̊r̥̊e̥̊m̥̊i̥̊ 。.・°">
+<meta property="og:description" content="由于家里有一台MAC，作为HDTC中心角色，7*24小时运行。本意是将其某些目录共享到家庭内网，供其它机器（虚拟机、路由、NAS等）读写。  本文采用了是NFS共享方式，将OS X 下需共享的目录导出，由DSM5（群晖NAS）和AC66U_B1（华硕路由）进行挂载，以下是具体操作说明 媒体中心配置： MAC OS X 版本： 10.11.6 IP地址： 192.168.10.100 用户及HOS">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1332969-720a473e696e4778.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1332969-c07129fae6a40b11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1332969-36ded0f2eae2c694.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1332969-dc207907df1bf75d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1332969-2b7ceaf55976f31e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1332969-8205269d2db7a130.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-24T08:59:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OS X共享，LINUX挂载">
+<meta name="twitter:description" content="由于家里有一台MAC，作为HDTC中心角色，7*24小时运行。本意是将其某些目录共享到家庭内网，供其它机器（虚拟机、路由、NAS等）读写。  本文采用了是NFS共享方式，将OS X 下需共享的目录导出，由DSM5（群晖NAS）和AC66U_B1（华硕路由）进行挂载，以下是具体操作说明 媒体中心配置： MAC OS X 版本： 10.11.6 IP地址： 192.168.10.100 用户及HOS">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1332969-720a473e696e4778.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://im.u3ur.cc/2017/11/11/OS-X共享，LINUX挂载/"/>
+
+
+
+
+
+  <title>OS X共享，LINUX挂载 | .。.・°d̥̊o̥̊r̥̊e̥̊m̥̊i̥̊ 。.・°</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?da4315c754e83e09d651a3daa795b04a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">.。.・°d̥̊o̥̊r̥̊e̥̊m̥̊i̥̊ 。.・°</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Start from here.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-projects">
+          <a href="/projects/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            projects
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-contact">
+          <a href="/contact/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            contact
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://im.u3ur.cc/2017/11/11/OS-X共享，LINUX挂载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wall-e W.">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content=".。.・°d̥̊o̥̊r̥̊e̥̊m̥̊i̥̊ 。.・°">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OS X共享，LINUX挂载</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-11T13:19:07+08:00">
+                2017-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/11/OS-X共享，LINUX挂载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/11/OS-X共享，LINUX挂载/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>由于家里有一台MAC，作为HDTC中心角色，7*24小时运行。本意是将其某些目录共享到家庭内网，供其它机器（虚拟机、路由、NAS等）读写。</p>
+</blockquote>
+<p>本文采用了是NFS共享方式，将OS X 下需共享的目录导出，由DSM5（群晖NAS）和AC66U_B1（华硕路由）进行挂载，以下是具体操作说明</p>
+<h2 id="媒体中心配置："><a href="#媒体中心配置：" class="headerlink" title="媒体中心配置："></a>媒体中心配置：</h2><ul>
+<li>MAC OS X 版本： 10.11.6</li>
+<li>IP地址： 192.168.10.100</li>
+<li>用户及HOSTNAME： yoona@imac-home</li>
+</ul>
+<h2 id="DSM5-配置："><a href="#DSM5-配置：" class="headerlink" title="DSM5 配置："></a>DSM5 配置：</h2><ul>
+<li>LINUX开发版本：Linux DSM5 3.2.40</li>
+<li>IP地址：192.168.10.106</li>
+<li>用户及HOSTNAME： admin@DSM5</li>
+</ul>
+<h2 id="AC66U-B1"><a href="#AC66U-B1" class="headerlink" title="AC66U_B1:"></a>AC66U_B1:</h2><ul>
+<li>LINUX开发版本：Merlin 7.6</li>
+</ul>
+<hr>
+<h2 id="OS-X-NFS-共享方式"><a href="#OS-X-NFS-共享方式" class="headerlink" title="OS X + NFS 共享方式"></a>OS X + NFS 共享方式</h2><p><img src="http://upload-images.jianshu.io/upload_images/1332969-720a473e696e4778.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>上图中，第一列是导出的共享目录（Downloads、video、photo、music、ikbase、downloads），第二列是对应目录的可见网段（192.168.10.0~192.168.10.254）。</p>
+<p>这些共享目录是通过 /etc/exports 这个文体定义的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Volumes/NMSC/downloads -alldirs -rw -network 192.168.10.0 -mask 255.255.255.0</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1332969-c07129fae6a40b11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>该文件被修改后，如何立即生效呢？可以通过nfsd命令设置（该命令由nfs服务提供）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nfsd status  # 查询服务状态</span><br><span class="line">nfsd update # 重新加载exports定义的目录</span><br></pre></td></tr></table></figure></p>
+<p>其它机器若想知道媒体中心导出的目录有哪些，可以这样：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1332969-36ded0f2eae2c694.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="DSM5-挂载"><a href="#DSM5-挂载" class="headerlink" title="DSM5 挂载"></a>DSM5 挂载</h2><p>DSM5 是群晖定制的LINUX系统，用来提供NAS服务，此处不讲。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1332969-dc207907df1bf75d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查询媒体中心共享的目录"></p>
+<p>挂载命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t nfs -o nosuid,noexec,nodev,ro,bg,soft,rsize=32768,wsize=32768 $dir_src $dir_dst</span><br></pre></td></tr></table></figure></p>
+<p>其中，dir_src 是指网络共享出来的某个目录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir_src=192.168.10.100:/Volumes/NMSC/downloads</span><br></pre></td></tr></table></figure></p>
+<p>dir_dst 是指本机的某个目录，是挂载点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir_dst=/volume1/TDDOWNLOAD</span><br></pre></td></tr></table></figure></p>
+<p>最后挂载完后的情况如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1332969-2b7ceaf55976f31e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="AC66U-B1-挂载"><a href="#AC66U-B1-挂载" class="headerlink" title="AC66U_B1 挂载"></a>AC66U_B1 挂载</h2><p>挂载命令需在DSM5挂载命令的基础上添加 ‘nolock’，去掉文件锁方可挂载成功，命令具体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t nfs -o nosuid,noexec,nodev,nolock,rw,bg,soft,rsize=32768,wsize=32768 $dir_src $dir_dst</span><br></pre></td></tr></table></figure></p>
+<p>其中，dir_src 是指网络共享出来的某个目录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir_src=192.168.10.100:/Volumes/NMSC/downloads</span><br></pre></td></tr></table></figure></p>
+<p>dir_dst 是AC66U_B1外接U盘下的某个目录，是挂载点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir_dst=/tmp/mnt/_________U___/share/downloads</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1332969-8205269d2db7a130.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>我的AC66U_B1路由<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t nfs -o nosuid,noexec,nodev,nolock,rw,bg,soft,rsize=32768,wsize=32768 192.168.50.163:/Volumes/NMSC/downloads /tmp/mnt/_________U___/share/downloads</span><br></pre></td></tr></table></figure></p>
+<p>这么多目录，其实可以通过shell脚本进行挂载和卸载。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OS-X-Linux-共享，挂载/" rel="tag"># OS X, Linux, 共享，挂载</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/02/Markdown-sample-test-1/" rel="next" title="Markdown:  sample-test 1">
+                <i class="fa fa-chevron-left"></i> Markdown:  sample-test 1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/11/nPlayer-WebDAV-华硕RT-AC66U-B1-穿墙访问局域网内所有主机共享目录/" rel="prev" title="nPlayer + WebDAV + 华硕RT-AC66U B1 + 穿墙访问局域网内所有主机共享目录">
+                nPlayer + WebDAV + 华硕RT-AC66U B1 + 穿墙访问局域网内所有主机共享目录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="Wall-e W." />
+            
+              <p class="site-author-name" itemprop="name">Wall-e W.</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#媒体中心配置："><span class="nav-number">1.</span> <span class="nav-text">媒体中心配置：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DSM5-配置："><span class="nav-number">2.</span> <span class="nav-text">DSM5 配置：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AC66U-B1"><span class="nav-number">3.</span> <span class="nav-text">AC66U_B1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-X-NFS-共享方式"><span class="nav-number">4.</span> <span class="nav-text">OS X + NFS 共享方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DSM5-挂载"><span class="nav-number">5.</span> <span class="nav-text">DSM5 挂载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AC66U-B1-挂载"><span class="nav-number">6.</span> <span class="nav-text">AC66U_B1 挂载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wall-e W.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://im.u3ur.cc/2017/11/11/OS-X共享，LINUX挂载/';
+          this.page.identifier = '2017/11/11/OS-X共享，LINUX挂载/';
+          this.page.title = 'OS X共享，LINUX挂载';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
