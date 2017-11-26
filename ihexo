@@ -4,6 +4,10 @@
 #HexoEditorDir=/Users/wall-e/web/hexo/hexo-editor
 #echo ${HexoEditorDir}
 
+function fun_get_ip4(){
+	myip=`ip addr | grep "inet " | grep -v 127.0.0.1 | awk '{ printf $2n}' | sed 's/\/24//g'`
+}
+
 WatchPath=$1
 str_info="\033[45;37m INFO \033[0m "
 str_info="\033[32mINFO \033[0m "
@@ -15,12 +19,13 @@ fi
 
 cd $1
 #hexo clean  # Clean cache
+fun_get_ip4
 
 base_dir=`sed -n '/^base_dir/'p $HexoEditorDir/_config.yml  | awk -F ":" '{print $2}' | sed 's/ //g'`
 port1=`sed -n '/^port/'p $HexoEditorDir/_config.yml  | awk -F ":" '{print $2}' | sed 's/ //g'`
-echo -e "${str_info}  Hexo-Editor is running at \033[36m http://localhost:$port1/ \033[0m. Press Ctrl+C to stop"
+echo -e "${str_info}  Hexo-Editor is running at \033[36m http://$myip:$port1/ \033[0m. Press Ctrl+C to stop"
 echo -e "${str_info}  Hexo-Editor is editing at \033[35m $base_dir \033[0m."
-echo -e "${str_info}  Hexo-Admin is running at \033[36m http://localhost:4000/admin/ \033[0m.Press Ctrl+C to stop"
+echo -e "${str_info}  Hexo-Admin is running at \033[36m http://$myip:4000/admin/ \033[0m.Press Ctrl+C to stop"
 
 #livereload -e ".md, .html, .png, .svg, .jpg, .gif, .css, .js, .json" | hexo server --debug
 npm start --prefix $HexoEditorDir > $HexoEditorDir/he.log | livereload -p $WatchPath -e ".md, .html, .png, .svg, .jpg, .gif, .css, .js, .json" > $WatchPath/livereload.log | hexo s
