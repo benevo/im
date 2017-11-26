@@ -26,6 +26,7 @@ port1=`sed -n '/^port/'p $HexoEditorDir/_config.yml  | awk -F ":" '{print $2}' |
 echo -e "${str_info}  Hexo-Editor is running at \033[36m http://$myip:$port1/ \033[0m. Press Ctrl+C to stop"
 echo -e "${str_info}  Hexo-Editor is editing at \033[35m $base_dir \033[0m."
 echo -e "${str_info}  Hexo-Admin is running at \033[36m http://$myip:4000/admin/ \033[0m.Press Ctrl+C to stop"
+echo -e "${str_info}  Hexo instance is running at \033[36m http://$myip:4000/ \033[0m.Press Ctrl+C to stop"
 
 #livereload -e ".md, .html, .png, .svg, .jpg, .gif, .css, .js, .json" | hexo server --debug
 npm start --prefix $HexoEditorDir > $HexoEditorDir/he.log | livereload -p $WatchPath -e ".md, .html, .png, .svg, .jpg, .gif, .css, .js, .json" > $WatchPath/livereload.log | hexo s
