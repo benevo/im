@@ -15,6 +15,11 @@ blog on github
 # open http://localhost:4000/
 ```
 
+安装nexT主题
+```bash
+~ # git clone https://github.com/benevo/hexo-theme-next.git themes/next
+```
+
 
 # Plugins dependencies:
 
@@ -31,11 +36,15 @@ blog on github
 ~ # npm install -g node-livereload
 ~ # livereload -e ".md, .html, .png, .svg, .jpg, .gif, .css, .js, .json" -p <hexo workpath>
 ```
-chrome需安装插件livereload，在需要的实时刷新的页面点击一下该扩展按钮
+chrome需安装插件livereload，在需要的实时刷新的页面点击一下该扩展按钮。如果遇到权限问题：
+```
+sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+```
 
-[hexo-editor](https://github.com/tajpure/hexo-editor)：
+
+[hexo-editor](https://github.com/benevo-hexo/hexo-editor)：
 ```bash
-~ # git clone https://github.com/tajpure/hexo-editor.git
+~ # git clone https://github.com/benevo-hexo/hexo-editor.git
 ~ # cd hexo-editor
 ~ # npm install --production
 ~ # npm start
@@ -49,7 +58,9 @@ export HexoEditorDir=/Users/wall-e/web/hexo/hexo-editor
 并修改稿其目录下的_config.yml文件中的base_dir为hexo的工作目录
 ```
 base_dir: /Users/wall-e/web/hexo/im
+# 注意 这里必须用绝对路径，不能用 ~/web/hexo/im 之类的
 ```
+
 
 安装上述插件后，在hexo工作目录下执行以下脚本，可以实时预览，实时修改：
 ```bash

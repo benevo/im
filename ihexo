@@ -1,5 +1,6 @@
 #!/bin/bash
 # description: livereload + hexo + markdown
+# Mac Os x: brew install iproute2mac
 
 #HexoEditorDir=/Users/wall-e/web/hexo/hexo-editor
 #echo ${HexoEditorDir}
